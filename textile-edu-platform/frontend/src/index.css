@@ -1,0 +1,99 @@
+/* ============================================
+   产教适配平台 — 全局设计令牌
+   Design system: cold neutral + single blue accent
+   ============================================ */
+
+/* ── Color tokens ── */
+:root {
+  /* 中性灰（统一冷灰） */
+  --gray-50:   #f8fafc;
+  --gray-100:  #f1f5f9;
+  --gray-200:  #e2e8f0;
+  --gray-300:  #cbd5e1;
+  --gray-400:  #94a3b8;
+  --gray-500:  #64748b;
+  --gray-600:  #475569;
+  --gray-700:  #334155;
+  --gray-800:  #1e293b;
+  --gray-900:  #0f172a;
+
+  /* 单色强调蓝 */
+  --accent:       #1d4ed8;
+  --accent-light: #dbeafe;
+  --accent-border:rgba(29, 78, 216, 0.18);
+  --accent-glow:  rgba(29, 78, 216, 0.12);
+
+  /* 功能色（语义，不用于装饰） */
+  --success:  #059669;
+  --warning:  #d97706;
+  --danger:   #dc2626;
+
+  /* 侧边栏（深色，与 Login 面板一致） */
+  --sidebar-bg:       #0b1a2e;
+  --sidebar-bg-end:   #0c1f38;
+  --sidebar-border:   rgba(255, 255, 255, 0.06);
+  --sidebar-text:     #e2eaf5;
+  --sidebar-muted:    rgba(180, 200, 230, 0.45);
+  --sidebar-active:   #3b82f6;
+
+  /* 内容区 */
+  --content-bg:    #f0f4f8;
+  --card-bg:       #ffffff;
+  --card-border:   #e2e8f0;
+  --card-shadow:   0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --card-shadow-hover: 0 8px 24px rgba(15, 23, 42, 0.10), 0 2px 6px rgba(15, 23, 42, 0.06);
+
+  /* 布局 */
+  --sidebar-width:    256px;
+  --sidebar-collapsed: 72px;
+  --topbar-height:    60px;
+  --radius-sm:        6px;
+  --radius-md:        10px;
+  --radius-lg:        14px;
+}
+
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; padding: 0; }
+
+/* Skip-link（无障碍） */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 8px 16px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: top 0.15s;
+}
+.skip-link:focus { top: 12px; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: var(--content-bg);
+  color: var(--gray-800);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+img { max-width: 100%; display: block; }
+
+/* 数字统一 tabular-nums */
+num, .num { font-variant-numeric: tabular-nums; }
+
+/* 滚动行为 */
+html { scroll-behavior: smooth; }
+
+/* 自定义滚动条 */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
