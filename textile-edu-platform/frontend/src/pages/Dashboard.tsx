@@ -175,8 +175,7 @@ const Dashboard: React.FC = () => {
         <div className="dash-hero-inner">
           <div className="dash-hero-meta">产教融合 · 数据驱动 · 诊断分析</div>
           <h1 className="dash-hero-title">
-            上海市普陀区<br/>
-            <span className="title-accent">中教科产教融合研究院</span>
+            江苏工程职业技术学院
           </h1>
           <p className="dash-hero-sub">纺织工业产教适配分析与诊断平台</p>
           <p className="dash-hero-desc">
@@ -235,7 +234,7 @@ const Dashboard: React.FC = () => {
       <div className="dash-footer">
         <span>数据基准：江苏 + 上海招聘大数据 · 行业政策 · DACUM 岗位分析</span>
         <span className="dash-footer-sep"/>
-        <span>© 2026 上海市普陀区中教科产教融合研究院</span>
+        <span>© 2026 江苏工程职业技术学院</span>
       </div>
     </div>
   )

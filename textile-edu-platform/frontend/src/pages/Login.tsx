@@ -69,7 +69,7 @@ const Login = () => {
             </div>
             <h1 className="brand-name">产教通</h1>
             <p className="brand-tagline">纺织工业产教适配分析与诊断平台</p>
-            <p className="brand-sub">上海市普陀区中教科产教融合研究院</p>
+            <p className="brand-sub">江苏工程职业技术学院</p>
           </div>
 
           <div className="stats-row">
@@ -107,7 +107,7 @@ const Login = () => {
 
         {/* 底部版权 */}
         <div className="visual-footer">
-          <span>© 2026 上海市普陀区中教科产教融合研究院</span>
+          <span>© 2026 江苏工程职业技术学院</span>
         </div>
       </div>
 

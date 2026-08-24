@@ -153,7 +153,7 @@ const MainLayout: React.FC = () => {
         <header className="topbar">
           <div className="topbar-left">
             <div className="page-breadcrumb">
-              <span className="crumb-root">上海市普陀区中教科产教融合研究院</span>
+              <span className="crumb-root">江苏工程职业技术学院</span>
               <span className="crumb-sep">/</span>
               <span className="crumb-current">产教适配分析与诊断平台</span>
             </div>
