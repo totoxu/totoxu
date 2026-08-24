@@ -453,26 +453,28 @@ const Screen1: React.FC = () => {
   }, [SCREEN1.cosFunnel])
 
   useECharts(regionRef, {
-    tooltip: { ...tooltip, trigger: 'item', formatter: p => `${p.name}<br/>企业总量：${p.value?.toLocaleString() ?? 0} 家` },
+    tooltip: { ...tooltip, trigger: 'item', formatter: p => `${p.data?.name}<br/>企业总量：${p.data?.value ?? 0} 家` },
     series: [{
-      type: 'treemap',
-      width: '100%',
-      height: '100%',
-      top: 4,
-      bottom: 4,
-      left: '8%',
-      nodeClick: false,
-      breadcrumb: { show: false },
-      label: { show: true, fontSize: 10, color: '#d7f5ef', formatter: p => `${p.name}\n${p.value > 0 ? p.value + '家' : ''}` },
-      itemStyle: { borderColor: '#04211f', borderWidth: 2, borderRadius: 4 },
-      upperLabel: { show: true, fontSize: 11, color: '#d7f5ef', height: 18 },
-      levels: [
-        { itemStyle: { color: '#0f766e' } },
-        { itemStyle: { color: '#12897e' } },
-        { itemStyle: { color: '#2ee6c8' } },
-        { itemStyle: { color: '#57f0d8' } },
-      ],
+      type: 'tree',
       data: SCREEN1.chainTree,
+      top: '5%',
+      left: '12%',
+      bottom: '5%',
+      right: '20%',
+      symbolSize: 8,
+      label: {
+        fontSize: 10,
+        color: '#d7f5ef',
+        formatter: p => p ? `${p.name}${p.value > 0 ? '\n' + p.value + '家' : ''}` : '',
+      },
+      leaves: { label: { position: 'left', verticalAlign: 'middle', align: 'right' } },
+      emphasis: { focus: 'descendant' },
+      expandAndCollapse: true,
+      animationDuration: 550,
+      animationDurationUpdate: 750,
+      initialTreeDepth: 3,
+      lineStyle: { color: '#0f4a45', width: 1.5 },
+      itemStyle: { color: CY, borderColor: '#04211f' },
     }],
   }, [SCREEN1.chainTree])
 
