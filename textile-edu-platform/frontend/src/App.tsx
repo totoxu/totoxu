@@ -70,7 +70,6 @@ const App: React.FC = () => {
 
         {/* 专业诊断报告 */}
         <Route path="diagnostic/majors" element={<MajorReports />} />
-        <Route path="diagnostic/textile-report" element={<TextileReport />} />
 
         {/* 系统管理（仅管理员） */}
         <Route

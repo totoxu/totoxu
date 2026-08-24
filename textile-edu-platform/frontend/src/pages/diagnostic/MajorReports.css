@@ -1,0 +1,406 @@
+/* 专业诊断报告 */
+
+/* ── 诊断报告在线预览 ── */
+
+.report-preview-card {
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.report-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #f8fafc;
+  border-bottom: 1px solid var(--border-color, #e2e8f0);
+}
+
+.report-preview-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary, #1a2b4a);
+  margin: 0;
+}
+
+.report-preview-iframe {
+  width: 100%;
+  height: 720px;
+  border: none;
+  display: block;
+}
+
+/* ── 企业画像弹窗（复刻 EnterpriseDirectory） ── */
+
+/* 弹窗外层 */
+.edir-modal {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* 加载 / 空态 */
+.edir-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+/* 主体 */
+.edir-body {
+  padding: 0 0 8px;
+}
+
+/* 头部 */
+.edir-head {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #e3ebe9;
+  margin-bottom: 4px;
+}
+.edir-head-main {}
+.edir-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.edir-name-row h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a2b2b;
+  margin: 0;
+}
+.edir-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.edir-tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(12, 138, 116, 0.08);
+  color: #0c8a74;
+  border: 1px solid rgba(12, 138, 116, 0.2);
+}
+.edir-tag.qual {
+  background: rgba(255, 179, 0, 0.08);
+  color: #b45309;
+  border-color: rgba(255, 179, 0, 0.25);
+}
+.edir-tag.bucket {
+  background: rgba(26, 95, 168, 0.08);
+  color: #1a5fa8;
+  border-color: rgba(26, 95, 168, 0.2);
+}
+.edir-brief {
+  font-size: 13px;
+  color: #5f7574;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* 决策卡 */
+.edir-decision {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 12px 24px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.edir-decision.g {
+  background: rgba(22, 163, 74, 0.06);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+  color: #166534;
+}
+.edir-decision.a {
+  background: rgba(180, 83, 9, 0.06);
+  border: 1px solid rgba(180, 83, 9, 0.2);
+  color: #92400e;
+}
+.edir-decision.r {
+  background: rgba(220, 38, 38, 0.06);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: #991b1b;
+}
+.edir-decision-big {
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  min-width: 48px;
+}
+.edir-decision p { margin: 0; flex: 1; }
+
+/* 区块 */
+.edir-sec {
+  margin: 4px 24px 16px;
+  padding: 16px 18px;
+  background: #f9fdfc;
+  border: 1px solid #e3ebe9;
+  border-radius: 12px;
+}
+.edir-sec-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.section-index {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0c8a74;
+  background: rgba(12, 138, 116, 0.1);
+  border: 1px solid rgba(12, 138, 116, 0.2);
+  padding: 2px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+}
+.edir-sec-head h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a2b2b;
+  margin: 0;
+}
+.edir-sec-note {
+  font-size: 12px;
+  color: #8fa8a6;
+  margin-left: auto;
+}
+
+/* 雷达图 + 评分条 */
+.edir-radar-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.radar-box {
+  width: 100%;
+  height: 220px;
+}
+.edir-scores {}
+.edir-score-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.edir-score-lb {
+  font-size: 12px;
+  color: #5f7574;
+  width: 110px;
+  flex-shrink: 0;
+}
+.edir-score-track {
+  flex: 1;
+  height: 8px;
+  background: #eef5f3;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.edir-score-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #2ee6c8, #0c8a74);
+  transition: width 0.4s ease;
+}
+.edir-score-num {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0c8a74;
+  width: 30px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* 产教合作评估 */
+.edir-coop {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.edir-coop-card {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #e3ebe9;
+  background: #fff;
+}
+.edir-coop-card.edu { border-color: rgba(12, 138, 116, 0.25); }
+.edir-coop-card.job { border-color: rgba(26, 95, 168, 0.25); }
+.edir-coop-card h5 {
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: #0c8a74;
+}
+.edir-coop-card.job h5 { color: #1a5fa8; }
+.edir-coop-card p {
+  font-size: 12.5px;
+  color: #5f7574;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* 资质荣誉 */
+.edir-quals {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.edir-quals-lb {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8fa8a6;
+  margin-right: 4px;
+}
+
+/* 人才需求 KPI */
+.edir-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.edir-kpi {
+  text-align: center;
+  padding: 12px 8px;
+  background: #fff;
+  border: 1px solid #e3ebe9;
+  border-radius: 10px;
+}
+.edir-kpi-v {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0c8a74;
+}
+.edir-kpi-k {
+  font-size: 11px;
+  color: #8fa8a6;
+  margin-top: 2px;
+}
+
+/* 需求方向标签 */
+.edir-bucket-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+/* 岗位表格 */
+.edir-job-tb {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  margin-top: 4px;
+}
+.edir-job-tb th {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b8180;
+  background: #f7faf9;
+  border-bottom: 1px solid #e3ebe9;
+}
+.edir-job-tb td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f5f4;
+  color: #374151;
+}
+.edir-job-title {
+  font-weight: 600;
+  color: #1a2b2b;
+}
+
+/* 对口院校供给 */
+.edir-supply-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.edir-supply-card {
+  padding: 12px;
+  border: 1px solid #e3ebe9;
+  border-radius: 10px;
+  background: #fff;
+}
+.edir-supply-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.edir-supply-school {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1a2b2b;
+}
+.edir-supply-num {
+  font-size: 11px;
+  color: #8fa8a6;
+}
+.edir-supply-major {
+  font-size: 11.5px;
+  color: #0c8a74;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.edir-supply-group,
+.edir-supply-bucket {
+  font-size: 11px;
+  color: #8fa8a6;
+}
+.edir-supply-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 6px;
+}
+.edir-supply-tag {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(12, 138, 116, 0.08);
+  color: #0c8a74;
+  border: 1px solid rgba(12, 138, 116, 0.15);
+}
+
+/* 风险提示 */
+.edir-flag {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+.edir-flag.warn {
+  background: rgba(220, 38, 38, 0.06);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: #991b1b;
+}
+.edir-flag.info {
+  background: rgba(26, 95, 168, 0.06);
+  border: 1px solid rgba(26, 95, 168, 0.2);
+  color: #1a5fa8;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .edir-radar-grid { grid-template-columns: 1fr; }
+  .edir-coop { grid-template-columns: 1fr; }
+  .edir-kpis { grid-template-columns: repeat(3, 1fr); }
+  .edir-supply-grid { grid-template-columns: repeat(2, 1fr); }
+}
