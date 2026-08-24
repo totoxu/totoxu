@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build output
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Uploaded documents / LibreOffice temp files
+backend/uploads/
+backend/.cache/
+
+# impecable test fixtures
+.impeccable/tests/
+.impeccable/demos/
+
+# Python extracted data (from earlier work)
+*.json
+*.txt
+*.py
+!frontend/package.json
