@@ -49,7 +49,7 @@ const KPI_DATA = [
   { value: '226', unit: '家', label: '深度企业画像' },
   { value: '4,937', unit: '条', label: '真实纺织招聘岗位' },
   { value: '12,840', unit: '人', label: '招聘人数（估算）' },
-  { value: '113', unit: '个', label: '产业链图谱节点' },
+  { value: '54', unit: '个', label: '产业链图谱节点' },
   { value: '1', unit: '份', label: '专业诊断报告' },
 ]
 
@@ -223,9 +223,9 @@ const SCREEN3 = {
     avg: [4.2, 3.8, 3.5, 4.6, 3.9, 4.1, 4.0],
   },
   decisionPie: [
-    { name: '推荐合作 48家', value: 48, color: CY },
-    { name: '谨慎求职 12家', value: 12, color: GD },
-    { name: '规避风险 5家', value: 5, color: RED },
+    { name: '推荐合作 163家', value: 163, color: CY },
+    { name: '谨慎求职 59家', value: 59, color: GD },
+    { name: '回避风险 4家', value: 4, color: RED },
   ],
   matrix: {
     buckets: ['家纺设计', '服装制版', '印染技术', '化纤原料', '产业用纺织', '智能装备', '跨境电商'],
