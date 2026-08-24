@@ -74,13 +74,98 @@ const SCREEN1 = {
     { name: '国高新', value: 489 },
     { name: '科技中小', value: 876 },
   ],
-  regionTree: [
+  chainTree: [
     {
-      name: '南通市',
-      value: 47187,
+      name: '纺织工业',
+      value: 319,
       children: [
-        { name: '南通高新区', value: 8942 },
-        { name: '南通经开区', value: 5631 },
+        {
+          name: '纺织科学技术研究',
+          value: 0,
+          children: [{ name: '纺织科学技术研究', value: 0 }],
+        },
+        {
+          name: '原材料生产',
+          value: 100,
+          children: [
+            { name: '纺织材料种植', value: 2, children: [{ name: '棉麻种植', value: 0 }] },
+            { name: '纺织纤维生产', value: 93, children: [
+              { name: '纤维素纤维原料及纤维制造', value: 0 },
+              { name: '合成纤维', value: 0 },
+              { name: '生物基材料制造', value: 0 },
+            ]},
+            { name: '纺织化学试剂和助剂制造', value: 5, children: [
+              { name: '纺织原材料助剂', value: 0 },
+              { name: '纺织原材料染料', value: 0 },
+            ]},
+          ],
+        },
+        {
+          name: '加工制造',
+          value: 134,
+          children: [
+            { name: '纺织及印染精加工', value: 28, children: [
+              { name: '棉纺织及印染精加工', value: 0 },
+              { name: '毛纺织及染整精加工', value: 0 },
+              { name: '麻纺织及染整精加工', value: 0 },
+              { name: '丝绢纺织及印染精加工', value: 0 },
+              { name: '化纤织造及印染精加工', value: 0 },
+              { name: '针织或钩针编织物及其制品制造', value: 0 },
+            ]},
+            { name: '家用纺织成品制造', value: 45, children: [
+              { name: '床上用品制造', value: 0 },
+              { name: '毛巾类制品', value: 0 },
+              { name: '窗帘、布艺类产品制造', value: 0 },
+              { name: '其他家用纺织制成品制造', value: 0 },
+              { name: '羽毛(绒)制品加工', value: 0 },
+            ]},
+            { name: '服装服饰制造', value: 37, children: [
+              { name: '机织服装制造', value: 0 },
+              { name: '针织或钩针编织服装制造', value: 0 },
+              { name: '服饰制造', value: 0 },
+            ]},
+            { name: '产业用纺织制成品制造', value: 24, children: [
+              { name: '非织造布制造', value: 0 },
+              { name: '绳、索、缆制造', value: 0 },
+              { name: '篷、帆布制造', value: 0 },
+              { name: '其他产业用纺织制成品', value: 0 },
+            ]},
+          ],
+        },
+        {
+          name: '专用设备制造',
+          value: 48,
+          children: [
+            { name: '纺织服装专用设备', value: 48, children: [
+              { name: '纺织专用设备整机', value: 0 },
+              { name: '纺织机械零部件', value: 0 },
+              { name: '纺织专用高端设备', value: 0 },
+              { name: '纺织品专用仪器仪表', value: 0 },
+              { name: '缝制机械制造', value: 0 },
+              { name: '服装裁剪定型设备', value: 0 },
+              { name: '羽绒加工设备（部分）', value: 0 },
+              { name: '其他服装服饰机械制造', value: 0 },
+            ]},
+          ],
+        },
+        {
+          name: '品牌与研发设计',
+          value: 3,
+          children: [
+            { name: '纺织服装研发设计', value: 0 },
+            { name: '纺织服务品牌运营', value: 3 },
+          ],
+        },
+        {
+          name: '产品销售和流通',
+          value: 34,
+          children: [
+            { name: '纺织产品批发和进出口', value: 12 },
+            { name: '纺织品及针织品零售', value: 2 },
+            { name: '服装服饰批发', value: 10 },
+            { name: '服装服饰零售', value: 10 },
+          ],
+        },
       ],
     },
   ],
@@ -368,22 +453,28 @@ const Screen1: React.FC = () => {
   }, [SCREEN1.cosFunnel])
 
   useECharts(regionRef, {
-    tooltip: { ...tooltip, trigger: 'item', formatter: p => `${p.name}<br/>企业总量：${p.value?.toLocaleString() ?? p.value} 家` },
+    tooltip: { ...tooltip, trigger: 'item', formatter: p => `${p.name}<br/>企业总量：${p.value?.toLocaleString() ?? 0} 家` },
     series: [{
       type: 'treemap',
       width: '100%',
       height: '100%',
       top: 4,
       bottom: 4,
-      left: '10%',
+      left: '8%',
       nodeClick: false,
       breadcrumb: { show: false },
-      label: { show: true, fontSize: 11, color: '#d7f5ef', formatter: p => `${p.name}\n${p.value?.toLocaleString() ?? ''}家` },
+      label: { show: true, fontSize: 10, color: '#d7f5ef', formatter: p => `${p.name}\n${p.value > 0 ? p.value + '家' : ''}` },
       itemStyle: { borderColor: '#04211f', borderWidth: 2, borderRadius: 4 },
-      upperLabel: { show: false },
-      data: SCREEN1.regionTree,
+      upperLabel: { show: true, fontSize: 11, color: '#d7f5ef', height: 18 },
+      levels: [
+        { itemStyle: { color: '#0f766e' } },
+        { itemStyle: { color: '#12897e' } },
+        { itemStyle: { color: '#2ee6c8' } },
+        { itemStyle: { color: '#57f0d8' } },
+      ],
+      data: SCREEN1.chainTree,
     }],
-  }, [SCREEN1.regionTree])
+  }, [SCREEN1.chainTree])
 
   return (
     <div className="cp-screen">
@@ -410,7 +501,7 @@ const Screen1: React.FC = () => {
           <div ref={funnelRef} className="cp-chart sm" />
         </div>
         <div className="cp-panel">
-          <h6>企业总量（家）</h6>
+          <h6>产业链节点企业分布</h6>
           <div ref={regionRef} className="cp-chart sm" />
         </div>
       </div>
