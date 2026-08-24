@@ -79,10 +79,6 @@
   transform: translateY(0);
 }
 
-.btn-print svg {
-  flex-shrink: 0;
-}
-
 /* ── 滚动内容区 ── */
 .report-scroll-container {
   flex: 1;
@@ -91,13 +87,15 @@
   scroll-behavior: smooth;
 }
 
-.report-scroll-container > * {
+/* 包裹报告内容：白色 A4 卡片效果 */
+.report-scroll-container > :first-child,
+.report-scroll-container > div:not([class]) {
   max-width: 760px;
   margin: 0 auto;
   background: #fff;
-  padding: 40px 48px;
+  padding: 48px 56px;
   border-radius: var(--radius-md, 8px);
-  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.08);
 }
 
 /* ── 返回顶部 ── */
@@ -130,6 +128,7 @@
 /* ── 加载 / 错误状态 ── */
 .report-loading,
 .report-error {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -173,36 +172,45 @@
   color: #94a3b8;
 }
 
-/* ── 报告内嵌内容的样式覆盖（保留原始报告样式） ── */
-.report-scroll-container :is(h1, h2, h3, h4, h5) {
-  font-family: "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+/* ── 报告内嵌样式隔离：阻止外部 CSS 污染报告 ── */
+.report-scroll-container :where(h1, h2, h3, h4, h5) {
+  font-family: "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", "SimHei", sans-serif;
   color: #1a2b4a;
+  font-weight: 700;
+  line-height: 1.4;
 }
 
-.report-scroll-container table {
-  font-size: 13px;
+.report-scroll-container :where(p) {
+  font-family: "Source Han Serif SC", "Noto Serif CJK SC", "SimSun", "宋体", serif;
+  font-size: 15px;
+  line-height: 1.85;
+  text-indent: 2em;
+  margin: 0 0 12px;
 }
 
-.report-scroll-container .chart svg {
+.report-scroll-container :where(table) {
+  font-family: "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  font-size: 13.5px;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+}
+
+.report-scroll-container :where(th) {
+  background: #1a2b4a !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.report-scroll-container :where(img, svg) {
   max-width: 100%;
   height: auto;
 }
 
 /* ── 响应式 ── */
 @media (max-width: 768px) {
-  .report-toolbar {
-    padding: 10px 16px;
-  }
-  .report-toolbar-title {
-    font-size: 14px;
-  }
-  .report-scroll-container {
-    padding: 16px 8px 60px;
-  }
-  .report-scroll-container > * {
-    padding: 24px 20px;
-  }
-  .btn-print span.btn-label {
-    display: none;
-  }
+  .report-toolbar { padding: 10px 16px; }
+  .report-toolbar-title { font-size: 14px; }
+  .report-scroll-container { padding: 16px 8px 60px; }
+  .report-scroll-container > :first-child { padding: 24px 20px; }
 }
