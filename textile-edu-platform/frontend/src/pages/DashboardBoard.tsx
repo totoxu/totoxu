@@ -650,7 +650,7 @@ const Screen3: React.FC = () => {
         <div className="cp-panel">
           <h6>企业七维评分均值</h6>
           <div ref={radarRef} className="cp-chart" style={{ height: 260 }} />
-          <div className="cp-note">深度画像企业（Top48）七维均值，5分制</div>
+          <div className="cp-note">深度画像企业（Top226）七维均值，5分制</div>
         </div>
         <div className="cp-panel">
           <h6>合作/求职研判分布</h6>
