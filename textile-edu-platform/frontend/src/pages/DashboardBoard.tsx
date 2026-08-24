@@ -401,7 +401,7 @@ const Screen1: React.FC = () => {
           <div ref={funnelRef} className="cp-chart sm" />
         </div>
         <div className="cp-panel">
-          <h6>三区域企业总量对比（家）</h6>
+          <h6>企业总量（家）</h6>
           <div ref={regionRef} className="cp-chart sm" />
         </div>
       </div>
