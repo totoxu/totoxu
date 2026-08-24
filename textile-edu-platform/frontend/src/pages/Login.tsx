@@ -107,7 +107,7 @@ const Login = () => {
 
         {/* 底部版权 */}
         <div className="visual-footer">
-          <span>© 2026 江苏工程职业技术学院</span>
+          <span>© 2026 上海市普陀区中教科产教融合研究院</span>
         </div>
       </div>
 
