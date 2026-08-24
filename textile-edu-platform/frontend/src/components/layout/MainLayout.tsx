@@ -56,13 +56,14 @@ const MENU_GROUPS: MenuGroup[] = [
     ],
   },
   {
-    key: 'diagnostic',
-    label: '专业诊断报告',
-    icon: '✎',
-    children: [
-      { key: '/diagnostic/majors', label: '专业诊断报告' },
-    ],
-  },
+        key: 'diagnostic',
+        label: '专业诊断报告',
+        icon: '✎',
+        children: [
+          { key: '/diagnostic/majors', label: '专业诊断报告' },
+          { key: '/diagnostic/textile-report', label: '现代纺织诊断报告' },
+        ],
+      },
 ]
 
 const MainLayout: React.FC = () => {
