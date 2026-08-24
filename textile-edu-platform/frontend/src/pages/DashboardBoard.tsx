@@ -74,10 +74,15 @@ const SCREEN1 = {
     { name: '国高新', value: 489 },
     { name: '科技中小', value: 876 },
   ],
-  regionBar: [
-    { name: '南通市', value: 47187 },
-    { name: '南通高新区', value: 8942 },
-    { name: '南通经开区', value: 5631 },
+  regionTree: [
+    {
+      name: '南通市',
+      value: 47187,
+      children: [
+        { name: '南通高新区', value: 8942 },
+        { name: '南通经开区', value: 5631 },
+      ],
+    },
   ],
   planStrip: [
     { v: '2万亿+', l: '六大重点产业集群总产值目标（高端纺织位列其中）' },
@@ -363,18 +368,22 @@ const Screen1: React.FC = () => {
   }, [SCREEN1.cosFunnel])
 
   useECharts(regionRef, {
-    tooltip: { ...tooltip, trigger: 'axis', formatter: p => `${p[0].name}<br/>企业总量：${p[0].value.toLocaleString()} 家` },
-    grid: { left: 70, right: 20, top: 14, bottom: 22 },
-    xAxis: { type: 'category', ...baseAxis, data: SCREEN1.regionBar.map(r => r.name) },
-    yAxis: { type: 'value', ...baseAxis },
+    tooltip: { ...tooltip, trigger: 'item', formatter: p => `${p.name}<br/>企业总量：${p.value?.toLocaleString() ?? p.value} 家` },
     series: [{
-      type: 'bar',
-      barWidth: 30,
-      itemStyle: { color: BL, borderRadius: [5, 5, 0, 0] },
-      label: { show: true, position: 'top', fontSize: 10, color: '#9cc8ff', formatter: p => (p.value / 10000).toFixed(1) + '万' },
-      data: SCREEN1.regionBar.map(r => r.value),
+      type: 'treemap',
+      width: '100%',
+      height: '100%',
+      top: 4,
+      bottom: 4,
+      left: '10%',
+      nodeClick: false,
+      breadcrumb: { show: false },
+      label: { show: true, fontSize: 11, color: '#d7f5ef', formatter: p => `${p.name}\n${p.value?.toLocaleString() ?? ''}家` },
+      itemStyle: { borderColor: '#04211f', borderWidth: 2, borderRadius: 4 },
+      upperLabel: { show: false },
+      data: SCREEN1.regionTree,
     }],
-  }, [SCREEN1.regionBar])
+  }, [SCREEN1.regionTree])
 
   return (
     <div className="cp-screen">
