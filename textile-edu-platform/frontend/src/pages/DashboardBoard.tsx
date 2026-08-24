@@ -44,10 +44,10 @@ const tooltip: echarts.EChartsOption['tooltip'] = {
 
 // ─── KPI 数据（来自数据库真实值） ───────────────────────────────────────────
 const KPI_DATA = [
+  { value: '54', unit: '个', label: '产业链图谱节点' },
   { value: '1,386', unit: '家', label: '清册企业总量' },
   { value: '226', unit: '家', label: '深度企业画像' },
   { value: '4,937', unit: '条', label: '真实纺织招聘岗位' },
-  { value: '54', unit: '个', label: '产业链图谱节点' },
   { value: '1', unit: '份', label: '专业诊断报告' },
 ]
 
