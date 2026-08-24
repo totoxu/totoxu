@@ -37,17 +37,12 @@ const Dashboard: React.FC = () => {
             </div>
             <div className="dash-stat-divider"/>
             <div className="dash-stat">
-              <span className="dash-stat-num">1,509</span>
-              <span className="dash-stat-label">画像企业（家）</span>
-            </div>
-            <div className="dash-stat-divider"/>
-            <div className="dash-stat">
               <span className="dash-stat-num">4,937</span>
               <span className="dash-stat-label">纺织岗位（条）</span>
             </div>
             <div className="dash-stat-divider"/>
             <div className="dash-stat">
-              <span className="dash-stat-num">113</span>
+              <span className="dash-stat-num">54</span>
               <span className="dash-stat-label">产业链节点</span>
             </div>
           </div>
