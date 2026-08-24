@@ -1,0 +1,308 @@
+/* ============================================
+   DashboardBoard — 产教大脑驾驶舱
+   深色青绿主题 · 四屏切换
+   ============================================ */
+
+/* ── 驾驶舱容器 ── */
+.cockpit {
+  background: radial-gradient(1000px 420px at 50% -8%, #0a3f3a, #04211f);
+  border-radius: 18px;
+  padding: 22px 22px 18px;
+  color: #d7f5ef;
+  box-shadow: 0 8px 30px rgba(4, 33, 31, 0.35);
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.cockpit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(46, 230, 200, 0.015) 3px,
+    rgba(46, 230, 200, 0.015) 4px
+  );
+  pointer-events: none;
+}
+
+/* ── 标题 ── */
+.cp-title {
+  text-align: center;
+  margin-bottom: 14px;
+}
+.cp-title b {
+  font-size: 20px;
+  letter-spacing: 0.35em;
+  color: #57f0d8;
+  text-shadow: 0 0 16px rgba(46, 230, 200, 0.5);
+}
+.cp-title span {
+  display: block;
+  font-size: 11px;
+  color: #5f8f8a;
+  letter-spacing: 0.2em;
+  margin-top: 4px;
+}
+
+/* ── Tab 切换 ── */
+.cp-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.cp-tab {
+  padding: 5px 18px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8fc4bd;
+  border: 1px solid #0f4a45;
+  background: rgba(46, 230, 200, 0.06);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.cp-tab:hover {
+  color: #d7f5ef;
+  background: rgba(46, 230, 200, 0.12);
+}
+.cp-tab.active {
+  background: #2ee6c8;
+  color: #04211f;
+  border-color: #2ee6c8;
+  box-shadow: 0 0 12px rgba(46, 230, 200, 0.4);
+}
+
+/* ── KPI strip ── */
+.cp-kpis {
+  display: flex;
+  gap: 1px;
+  background: rgba(46, 230, 200, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.cp-kpi {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 6px;
+  background: rgba(4, 33, 31, 0.8);
+  text-align: center;
+}
+.cp-kpi-v {
+  font-size: 20px;
+  font-weight: 800;
+  color: #57f0d8;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.cp-kpi-v small {
+  font-size: 11px;
+  font-weight: 400;
+  color: #8fc4bd;
+  margin-left: 2px;
+}
+.cp-kpi-l {
+  font-size: 10.5px;
+  color: #5f8f8a;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* ── 面板 ── */
+.cp-panel {
+  background: linear-gradient(180deg, #073330, #062e2b);
+  border: 1px solid #0f4a45;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: inset 0 0 30px rgba(46, 230, 200, 0.04);
+  margin-bottom: 14px;
+}
+.cp-panel:last-child { margin-bottom: 0; }
+.cp-panel h6 {
+  font-size: 13px;
+  color: #2ee6c8;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+.cp-panel h6::before {
+  content: "";
+  width: 4px;
+  height: 13px;
+  background: #2ee6c8;
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(46, 230, 200, 0.6);
+  flex-shrink: 0;
+}
+
+/* ── 图表容器 ── */
+.cp-chart {
+  width: 100%;
+  height: 260px;
+}
+.cp-chart.sm { height: 210px; }
+.cp-chart-lg { height: 420px; }
+
+/* ── 宏观数据行 ── */
+.cp-macro-rows {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.cp-mrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  background: rgba(15, 74, 69, 0.4);
+  border-radius: 6px;
+}
+.cp-mrow .k {
+  font-size: 11.5px;
+  color: #8fc4bd;
+}
+.cp-mrow .v {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d7f5ef;
+  font-variant-numeric: tabular-nums;
+}
+.cp-mrow .v small {
+  font-size: 10px;
+  font-weight: 400;
+  color: #5f8f8a;
+  margin-left: 3px;
+}
+
+/* ── 规划数据条 ── */
+.cp-planstrip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+@media (max-width: 800px) {
+  .cp-planstrip { grid-template-columns: repeat(2, 1fr); }
+  .cp-macro-rows { grid-template-columns: repeat(2, 1fr); }
+}
+.cp-plan {
+  background: rgba(15, 74, 69, 0.4);
+  border-radius: 8px;
+  padding: 10px 12px;
+  border-left: 3px solid #2ee6c8;
+}
+.cp-plan .v {
+  font-size: 18px;
+  font-weight: 800;
+  color: #57f0d8;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.cp-plan .l {
+  font-size: 11px;
+  color: #8fc4bd;
+  margin-top: 4px;
+  line-height: 1.45;
+}
+
+/* ── 表格 ── */
+.cp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.cp-table th {
+  color: #8fc4bd;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border-bottom: 1px solid #0f4a45;
+  white-space: nowrap;
+}
+.cp-table td {
+  color: #d7f5ef;
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(15, 74, 69, 0.4);
+}
+.cp-table tr:hover td { background: rgba(46, 230, 200, 0.04); }
+
+/* ── 研判标签 ── */
+.cp-verdict {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 99px;
+  font-size: 11px;
+  background: rgba(46, 230, 200, 0.15);
+  color: #2ee6c8;
+  margin-left: 6px;
+}
+
+/* ── 建议卡片 ── */
+.cp-proposed {
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.cp-proposed::-webkit-scrollbar { width: 4px; }
+.cp-proposed::-webkit-scrollbar-thumb { background: #0f4a45; border-radius: 2px; }
+.cp-proposal-card {
+  border: 1px solid rgba(46, 230, 200, 0.22);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  background: rgba(46, 230, 200, 0.05);
+}
+.cp-proposal-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.cp-proposal-items {
+  font-size: 11.5px;
+  color: #8fc4bd;
+  margin: 6px 0;
+  line-height: 1.7;
+}
+.cp-proposal-item { margin: 1px 0; }
+.cp-proposal-row {
+  font-size: 11.5px;
+  color: #d7f5ef;
+  margin-top: 3px;
+}
+
+/* ── 注释 ── */
+.cp-note {
+  font-size: 11px;
+  color: #5f8f8a;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* ── 网格布局 ── */
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 900px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .cp-planstrip { grid-template-columns: 1fr 1fr; }
+  .cp-macro-rows { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .cockpit { padding: 14px 12px; }
+  .cp-title b { font-size: 16px; letter-spacing: 0.15em; }
+  .cp-kpi-v { font-size: 16px; }
+  .cp-kpi-l { font-size: 9.5px; }
+  .cp-planstrip { grid-template-columns: 1fr; }
+  .cp-macro-rows { grid-template-columns: 1fr; }
+}
