@@ -232,8 +232,6 @@ const Dashboard: React.FC = () => {
 
       {/* 底部说明 */}
       <div className="dash-footer">
-        <span>数据基准：江苏 + 上海招聘大数据 · 行业政策 · DACUM 岗位分析</span>
-        <span className="dash-footer-sep"/>
         <span>© 2026 上海市普陀区中教科产教融合研究院</span>
       </div>
     </div>
