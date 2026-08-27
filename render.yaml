@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: textile-edu-api
+    runtime: node
+    rootDir: textile-edu-platform/backend
+    buildCommand: npm install --no-audit --no-fund && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://totoxu.github.io/totoxu/
+      - key: DATABASE_URL
+        sync: false
