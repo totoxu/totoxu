@@ -1,0 +1,56 @@
+{
+  "name": "textile-edu-backend",
+  "version": "1.0.0",
+  "description": "纺织工业产教适配分析与诊断平台 - 后端服务",
+  "main": "dist/app.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node src/app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "import-enterprises": "ts-node src/scripts/import-enterprises.ts",
+    "import-web-data": "ts-node src/scripts/import-web-data.ts",
+    "import-industry-chain": "ts-node src/scripts/import-industry-chain.ts",
+    "import-industry-chain-module": "ts-node src/scripts/import-industry-chain-module.ts",
+    "import-dashboard": "ts-node src/scripts/import-dashboard-data.ts",
+    "sync-enterprise-site-profiles": "ts-node src/scripts/sync-enterprise-profiles-from-site.ts",
+    "sync-major-site-profiles": "ts-node src/scripts/sync-major-profiles-from-site.ts",
+    "import-tech-frontier": "ts-node src/scripts/import-tech-frontier.ts",
+    "import-tech-overview": "ts-node src/scripts/import-tech-overview.ts",
+    "import-competency-map": "ts-node src/scripts/import-competency-map.ts",
+    "import-position-analysis": "ts-node src/scripts/import-position-analysis.ts",
+    "import-job-competency": "ts-node src/scripts/import-job-competency.ts",
+    "import-diagnostic-report": "ts-node src/scripts/import-diagnostic-report.ts",
+    "import-all": "ts-node src/scripts/import-enterprises.ts && ts-node src/scripts/import-web-data.ts && ts-node src/scripts/import-industry-chain.ts && ts-node src/scripts/import-dashboard-data.ts"
+  },
+  "keywords": [
+    "textile",
+    "education",
+    "industry"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^26.2.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.2.0",
+    "nodemon": "^3.1.14",
+    "pg": "^8.23.0",
+    "reflect-metadata": "^0.2.2",
+    "ts-node": "^10.9.2",
+    "typeorm": "^1.1.0",
+    "typescript": "^5.3.3",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/multer": "^2.2.0"
+  }
+}
