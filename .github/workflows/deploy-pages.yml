@@ -34,7 +34,7 @@ jobs:
         working-directory: textile-edu-platform/frontend
         run: npx vite build
         env:
-          VITE_API_BASE_URL: /api/v1
+          VITE_API_BASE_URL: https://textile-edu-api.onrender.com/api/v1
 
       - name: Configure Pages
         uses: actions/configure-pages@v6
