@@ -32,7 +32,7 @@ jobs:
 
       - name: Build frontend
         working-directory: textile-edu-platform/frontend
-        run: npm run build
+        run: npx vite build
         env:
           VITE_API_BASE_URL: /api/v1
 
