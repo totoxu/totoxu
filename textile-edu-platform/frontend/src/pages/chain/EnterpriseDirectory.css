@@ -1,0 +1,85 @@
+/* ---------- 企业名录 ---------- */
+
+/* 筛选区 */
+.dir-filterbar {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 16px;
+}
+.chip-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.dir-filterbar .chip {
+  padding: 6px 13px; border-radius: 20px; font-size: 12.5px; font-weight: 600;
+  background: #fff; border: 1px solid #e3ebe9; color: #6b8180;
+  cursor: pointer; transition: all 0.2s;
+}
+.dir-filterbar .chip:hover { border-color: rgba(12,138,116,0.5); color: #0c8a74; }
+.dir-filterbar .chip.active { background: #0c8a74; color: #fff; border-color: #0c8a74; }
+.dir-filterbar .chip.dec.active { background: #0c8a74; border-color: #0c8a74; }
+
+/* 表格 */
+.dir-table-wrap {
+  background: #fff; border: 1px solid #e3ebe9; border-radius: 14px; overflow: hidden;
+}
+.dir-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.dir-table th {
+  text-align: left; padding: 12px 16px; font-size: 12px; font-weight: 600;
+  color: #6b8180; background: #f7faf9; border-bottom: 1px solid #e3ebe9; white-space: nowrap;
+}
+.dir-table td { padding: 12px 16px; border-bottom: 1px solid #f0f5f4; vertical-align: middle; }
+.dir-table tbody tr { cursor: pointer; transition: background 0.15s; }
+.dir-table tbody tr:hover { background: #f7faf9; }
+.dir-name { font-weight: 700; color: #1a2b2b; display: block; }
+.dir-area { font-size: 11.5px; color: #8fa8a6; display: block; margin-top: 2px; }
+.dir-node { font-weight: 600; color: #0c8a74; }
+
+/* 详情弹窗 */
+.dir-modal {
+  background: #fff; border-radius: 20px; overflow: hidden;
+}
+.dir-modal-header {
+  background: linear-gradient(135deg, #0c3b3a, #0f766e);
+  padding: 20px 24px; color: #fff;
+}
+.dir-modal-header h3 { font-size: 18px; font-weight: 700; margin: 0 0 6px; color: #fff; }
+.dir-modal-header p { font-size: 12px; color: rgba(255,255,255,0.7); margin: 0; }
+.dir-modal-body { padding: 20px 24px; }
+.dir-modal-body p { font-size: 13px; color: #1a2b2b; line-height: 1.75; margin: 0 0 10px; }
+.dir-modal-body strong { color: #1a2b2b; }
+
+/* 评分条 */
+.dir-score-bar { height: 8px; background: #eef5f3; border-radius: 4px; overflow: hidden; margin: 6px 0; }
+.dir-score-fill {
+  height: 100%; border-radius: 4px;
+  background: linear-gradient(90deg, #2ee6c8, #0c8a74);
+  transition: width 0.4s ease;
+}
+
+/* 决策徽章 */
+.decision-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+}
+.decision-badge.recommend {
+  background: rgba(22,163,74,0.1); color: #16a34a; border: 1px solid rgba(22,163,74,0.25);
+}
+.decision-badge.watch {
+  background: rgba(180,83,9,0.1); color: #b45309; border: 1px solid rgba(180,83,9,0.25);
+}
+.decision-badge.avoid {
+  background: rgba(220,38,38,0.1); color: #dc2626; border: 1px solid rgba(220,38,38,0.25);
+}
+
+/* 标签 */
+.dir-tag {
+  display: inline-block; padding: 2px 8px; border-radius: 8px;
+  font-size: 11px; font-weight: 600; background: rgba(46,230,200,0.1);
+  color: #0c8a74; border: 1px solid rgba(46,230,200,0.2);
+}
+.dir-tag.blue {
+  background: #e2eeff; color: #1a5fa8; border-color: rgba(26,95,168,0.2);
+}
+
+/* 响应式 */
+@media (max-width: 900px) {
+  .dir-table-wrap { overflow-x: auto; }
+  .dir-table { min-width: 600px; }
+}

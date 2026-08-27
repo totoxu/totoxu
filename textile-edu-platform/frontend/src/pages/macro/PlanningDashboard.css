@@ -1,0 +1,158 @@
+/* 产业发展规划看板 */
+
+.planning-page { display: flex; flex-direction: column; gap: 24px; }
+
+/* Tab 切换 */
+.planning-tabs {
+  display: flex; gap: 8px; padding: 0 4px;
+  border-bottom: 2px solid #e3ebe9;
+}
+.planning-tab {
+  padding: 10px 22px; border: none; background: transparent;
+  font-size: 14px; font-weight: 600; color: #6b8180; cursor: pointer;
+  border-bottom: 2px solid transparent; margin-bottom: -2px;
+  transition: all 0.2s; font-family: inherit;
+}
+.planning-tab:hover { color: #0c8a74; }
+.planning-tab.active { color: #0c8a74; border-bottom-color: #0c8a74; }
+
+/* KPI 行 */
+.planning-kpi-row {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px;
+}
+.kpi-card {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 18px; background: #fff; border-radius: 12px;
+  border: 1px solid #e3ebe9; border-top: 3px solid transparent;
+  transition: all 0.25s;
+}
+.kpi-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(10,31,31,0.08); }
+.kpi-icon { font-size: 24px; }
+.kpi-content { display: flex; flex-direction: column; }
+.kpi-value { font-size: 22px; font-weight: 800; color: #1a2b2b; font-family: 'SF Mono', Consolas, monospace; line-height: 1.2; }
+.kpi-value em { font-style: normal; font-size: 12px; font-weight: 500; color: #8fa8a6; margin-left: 2px; }
+.kpi-label { font-size: 11.5px; color: #6b8180; margin-top: 2px; }
+
+/* 图表行 */
+.planning-chart-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+.planning-chart-row .chart-card.wide { grid-column: 1 / -1; }
+.chart-card {
+  background: #fff; border: 1px solid #e3ebe9; border-radius: 14px;
+  padding: 18px 22px; transition: box-shadow 0.25s;
+}
+.chart-card:hover { box-shadow: 0 4px 16px rgba(10,31,31,0.06); }
+.chart-card h3 {
+  font-size: 14px; font-weight: 700; color: #1a2b2b; margin: 0 0 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.echarts-chart { width: 100%; }
+
+/* 规划卡片 */
+.planning-cards-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+}
+.plan-card {
+  background: #fff; border: 1px solid #e3ebe9; border-radius: 14px;
+  overflow: hidden; transition: all 0.25s;
+}
+.plan-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(10,31,31,0.08); }
+.plan-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; border-top: 3px solid transparent;
+  background: #f7faf9;
+}
+.plan-card-title { font-size: 15px; font-weight: 700; color: #1a2b2b; }
+.plan-card-badge {
+  font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px;
+  background: rgba(12,138,116,0.08); color: #0c8a74;
+}
+.plan-card-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 16px; }
+
+.plan-goals {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+}
+.plan-goal-item { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; background: #f7faf9; border-radius: 8px; }
+.plan-goal-value { font-size: 20px; font-weight: 800; color: #0c8a74; font-family: 'SF Mono', Consolas, monospace; line-height: 1.2; }
+.plan-goal-value em { font-style: normal; font-size: 11px; font-weight: 500; color: #8fa8a6; }
+.plan-goal-label { font-size: 11px; color: #8fa8a6; }
+
+.plan-policies h4, .plan-priority h4 {
+  font-size: 12px; font-weight: 700; color: #6b8180; letter-spacing: 0.04em;
+  text-transform: uppercase; margin: 0 0 8px;
+}
+.plan-policies ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.plan-policies li {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12.5px; color: #5f7574; line-height: 1.5;
+}
+.policy-dot { flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; }
+.plan-priority p { font-size: 12.5px; color: #0c8a74; line-height: 1.6; background: rgba(12,138,116,0.05); padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(12,138,116,0.1); margin: 0; }
+
+/* 政策表格 */
+.policy-table-wrap {
+  background: #fff; border: 1px solid #e3ebe9; border-radius: 14px; overflow: hidden;
+}
+.policy-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.policy-table th {
+  padding: 11px 16px; text-align: left; font-size: 11.5px; font-weight: 700;
+  color: #6b8180; background: #f7faf9; letter-spacing: 0.04em;
+  text-transform: uppercase; border-bottom: 1px solid #e3ebe9;
+}
+.policy-table td { padding: 12px 16px; border-bottom: 1px solid #f4f9f8; color: #1a2b2b; vertical-align: middle; }
+.policy-table tbody tr:hover td { background: #f7faf9; }
+.policy-table tbody tr:last-child td { border-bottom: none; }
+
+.level-badge {
+  display: inline-block; padding: 2px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 700;
+}
+.level-badge.state { background: rgba(198,40,40,0.1); color: #c62828; }
+.level-badge.js { background: rgba(21,101,192,0.1); color: #1565c0; }
+.level-badge.nt { background: rgba(46,125,50,0.1); color: #2e7d32; }
+
+.kw-cell { font-weight: 700; color: #1a2b2b; }
+.relevance-极高 { color: #c62828; font-weight: 700; }
+.relevance-高 { color: #f57c00; font-weight: 600; }
+.relevance-中 { color: #6b8180; }
+.detail-cell { color: #5f7574; font-size: 12.5px; max-width: 280px; }
+
+/* 纺织产业重点方向 */
+.textile-focus {
+  background: #fff; border: 1px solid #e3ebe9; border-radius: 14px;
+  padding: 20px 24px;
+}
+.textile-focus h3 {
+  font-size: 16px; font-weight: 700; color: #1a2b2b; margin: 0 0 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.focus-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+}
+.focus-card {
+  padding: 16px 18px; background: #f7faf9; border: 1px solid #e3ebe9;
+  border-radius: 12px; transition: all 0.25s;
+}
+.focus-card:hover { background: #fff; border-color: rgba(12,138,116,0.3); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(10,31,31,0.06); }
+.focus-tag {
+  display: inline-block; padding: 2px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 700; margin-bottom: 8px;
+  border: 1px solid;
+}
+.focus-card h4 { font-size: 14px; font-weight: 700; color: #1a2b2b; margin: 0 0 6px; }
+.focus-card p { font-size: 12.5px; color: #5f7574; line-height: 1.6; margin: 0; }
+
+/* 响应式 */
+@media (max-width: 1200px) {
+  .planning-kpi-row { grid-template-columns: repeat(3, 1fr); }
+  .planning-cards-row { grid-template-columns: 1fr; }
+  .planning-chart-row { grid-template-columns: 1fr; }
+  .planning-chart-row .chart-card.wide { grid-column: 1; }
+  .focus-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .planning-kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .focus-grid { grid-template-columns: 1fr; }
+  .plan-goals { grid-template-columns: 1fr; }
+}

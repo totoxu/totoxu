@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="1600" height="1200">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4f7f6"/>
+      <stop offset="100%" stop-color="#eef3f2"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#bg)"/>
+  <g fill="#dfe8e6" opacity="0.95">
+    <path d="M40 1100 C220 1040 340 980 520 920 L630 995 L720 960 L810 1010 L905 945 L1020 1005 L1115 930 L1295 1015 L1550 920 L1600 1200 L0 1200 Z"/>
+    <path d="M1020 120 C1150 180 1220 270 1300 350 L1460 470 L1600 430 L1600 0 L980 0 Z"/>
+  </g>
+  <path d="M-50 260 C120 220 220 300 360 260 C520 210 620 120 790 135 C930 148 1090 270 1215 255 C1370 238 1485 145 1650 120" fill="none" stroke="#84c7df" stroke-width="94" stroke-linecap="round" opacity="0.52"/>
+  <path d="M-40 286 C118 248 226 326 362 286 C514 242 632 156 790 168 C928 178 1080 304 1214 291 C1360 278 1498 180 1640 156" fill="none" stroke="#d9f2fb" stroke-width="56" stroke-linecap="round" opacity="0.95"/>
+  <g stroke="#cfd8d6" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.95">
+    <path d="M120 910 L420 760 L680 710 L910 760 L1180 720 L1450 790"/>
+    <path d="M230 980 L470 870 L760 850 L980 885 L1350 845"/>
+    <path d="M1120 140 L1080 300 L1120 500 L1210 700 L1260 930"/>
+    <path d="M760 120 L700 330 L710 560 L760 800 L840 1060"/>
+    <path d="M350 170 L460 320 L560 480 L670 640 L890 830 L1080 980"/>
+  </g>
+  <g stroke="#e4ab57" stroke-width="9" fill="none" stroke-linecap="round" opacity="0.95">
+    <path d="M100 612 L300 560 L490 602 L680 570 L860 620 L1060 600 L1280 650 L1490 620"/>
+    <path d="M420 110 L520 260 L560 430 L610 570 L720 680 L840 780 L1040 840 L1320 930"/>
+    <path d="M200 380 L340 450 L470 462 L600 440 L720 470 L900 450 L1040 470"/>
+  </g>
+  <g stroke="#d5dddb" stroke-width="4" fill="none" opacity="0.7">
+    <path d="M150 510 L260 540 L430 520 L560 560 L710 540 L820 560 L1020 540 L1180 560"/>
+    <path d="M230 740 L360 695 L500 708 L640 688 L810 710 L980 700 L1160 724 L1380 700"/>
+    <path d="M980 220 L910 330 L900 460 L940 560 L1050 660 L1100 800"/>
+    <path d="M560 240 L640 300 L700 410 L740 510"/>
+  </g>
+  <g fill="#ffffff" opacity="0.88" filter="url(#soft)">
+    <rect x="1002" y="442" width="372" height="236" rx="48"/>
+  </g>
+  <g fill="none" opacity="0.24">
+    <path d="M1040 468 L1288 448 L1372 536 L1320 642 L1120 676 L1018 592 Z" stroke="#119b82" stroke-width="42" stroke-linejoin="round"/>
+  </g>
+  <g fill="#3a4d4d" font-family="PingFang SC, Microsoft YaHei, sans-serif">
+    <text x="1088" y="535" font-size="32" font-weight="700" fill="#0c8a74">南通高新区</text>
+    <text x="1090" y="580" font-size="18" fill="#68817f">装备制造 · 纺织服装 · 科创载体</text>
+    <text x="210" y="220" font-size="22" fill="#7d9190">石港镇</text>
+    <text x="1270" y="215" font-size="22" fill="#7d9190">兴东街道</text>
+    <text x="930" y="1030" font-size="24" fill="#7d9190">南通西站方向</text>
+    <text x="70" y="95" font-size="26" fill="#96abaa">通州区空间示意底图</text>
+  </g>
+</svg>

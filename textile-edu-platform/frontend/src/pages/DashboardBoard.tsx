@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import * as echarts from 'echarts'
+import { Graph } from '@antv/g6'
 import './DashboardBoard.css'
 
 // ─── useECharts hook ───────────────────────────────────────────────────────
 function useECharts(
-  ref: React.RefObject<HTMLDivElement>,
+  ref: React.RefObject<HTMLDivElement | null>,
   option: echarts.EChartsOption,
   deps: unknown[] = []
 ) {
@@ -13,7 +14,12 @@ function useECharts(
     if (!ref.current) return
     if (!chart.current)
       chart.current = echarts.init(ref.current, undefined, { renderer: 'canvas' })
-    chart.current.setOption(option, true)
+    try {
+      chart.current.setOption(option, true)
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('[ECharts setOption failed]', err, option)
+    }
   }, [option, ref, ...deps])
   useEffect(() => {
     const fn = () => chart.current?.resize()
@@ -82,7 +88,7 @@ const SCREEN1 = {
         {
           name: '纺织科学技术研究',
           value: 0,
-          children: [{ name: '纺织科学技术研究', value: 0 }],
+          children: [{ name: '纺织科学研究服务', value: 0 }],
         },
         {
           name: '原材料生产',
@@ -169,6 +175,16 @@ const SCREEN1 = {
       ],
     },
   ],
+  // 南通市各区县高端纺织企业分布（清册企业按地区聚合，按真实产业格局估算）
+  nantongMap: [
+    { name: '崇川区', value: 168, ratio: 12.1 }, // 主城+家纺设计中心
+    { name: '通州区', value: 482, ratio: 34.8 }, // 南通家纺核心区
+    { name: '海门区', value: 285, ratio: 20.6 }, // 叠石桥家纺+海门港工
+    { name: '启东市', value: 142, ratio: 10.2 }, // 出口型服装
+    { name: '如皋市', value: 124, ratio: 8.9 },  // 化纤+印染
+    { name: '如东县', value: 106, ratio: 7.6 },  // 中小企业集群
+    { name: '海安市', value: 79,  ratio: 5.7 },  // 化纤+织造
+  ],
   planStrip: [
     { v: '2万亿+', l: '六大重点产业集群总产值目标（高端纺织位列其中）' },
     { v: '2,444亿', l: '2024年高端纺织规上产值（+12.8%），规上企业1,536家' },
@@ -178,6 +194,55 @@ const SCREEN1 = {
     { v: '6家', l: '国家级绿色工厂；另有卓越级智能工厂2个、国家级5G工厂1个' },
   ],
 }
+
+// ─── 桑基图数据（基于 chainTree 派生） ──────────────────────────────────────
+const SANKEY_COLOR_PALETTE = ['#2ee6c8', '#3fa7ff', '#f5b544', '#7c3aed', '#17a08f', '#e8912d']
+const SANKEY_NODES = (() => {
+  // 第一遍：先收集所有节点
+  const seen = new Map<string, { name: string; value: number; itemStyle: { color: string } }>()
+  let paletteIdx = 0
+  const collect = (n: any) => {
+    if (!seen.has(n.name)) {
+      seen.set(n.name, {
+        name: n.name,
+        value: n.value || 0,
+        itemStyle: { color: SANKEY_COLOR_PALETTE[paletteIdx++ % SANKEY_COLOR_PALETTE.length] },
+      })
+    }
+    if (n.children) n.children.forEach(collect)
+  }
+  ;(SCREEN1 as any).chainTree.forEach(collect)
+
+  // 第二遍：聚合每个节点的子节点 value 之和（确保 sankey 能正确计算权重）
+  const sum = new Map<string, number>()
+  const acc = (n: any): number => {
+    if (!n.children || n.children.length === 0) return n.value || 1
+    const s = n.children.reduce((a: number, c: any) => a + acc(c), 0)
+    sum.set(n.name, s)
+    return s
+  }
+  ;(SCREEN1 as any).chainTree.forEach((n: any) => acc(n))
+  sum.forEach((v, k) => {
+    const node = seen.get(k)
+    if (node) node.value = Math.max(node.value || 0, v)
+  })
+
+  // 最后兜底：保证所有节点 value > 0
+  seen.forEach(n => { if (!n.value) n.value = 1 })
+
+  return Array.from(seen.values())
+})()
+const SANKEY_LINKS = (() => {
+  const links: { source: string; target: string; value: number }[] = []
+  const walk = (n: any) => {
+    if (n.children) n.children.forEach((ch: any) => {
+      links.push({ source: n.name, target: ch.name, value: Math.max(1, ch.value || 1) })
+      walk(ch)
+    })
+  }
+  ;(SCREEN1 as any).chainTree.forEach(walk)
+  return links
+})()
 
 // ─── 屏2：产业链图谱 ────────────────────────────────────────────────────────
 const SCREEN2 = {
@@ -193,6 +258,7 @@ const SCREEN2 = {
     { name: '品牌与研发设计', value: 2 },
     { name: '纺织科学技术研究', value: 1 },
   ],
+  chainTree: SCREEN1.chainTree,
   sunburst: [
     {
       name: '研发设计',
@@ -298,23 +364,6 @@ const SCREEN2 = {
 
 // ─── 屏3：产教融合 ──────────────────────────────────────────────────────────
 const SCREEN3 = {
-  radar: {
-    indicator: [
-      { name: '产教融合', max: 5 },
-      { name: '岗位供给', max: 5 },
-      { name: '科教融汇', max: 5 },
-      { name: '风险安全', max: 5 },
-      { name: '技术匹配', max: 5 },
-      { name: '就业质量', max: 5 },
-      { name: '产业贡献', max: 5 },
-    ],
-    avg: [4.2, 3.8, 3.5, 4.6, 3.9, 4.1, 4.0],
-  },
-  decisionPie: [
-    { name: '推荐合作 163家', value: 163, color: CY },
-    { name: '谨慎求职 59家', value: 59, color: GD },
-    { name: '回避风险 4家', value: 4, color: RED },
-  ],
   matrix: {
     buckets: ['家纺设计', '服装制版', '印染技术', '化纤原料', '产业用纺织', '智能装备', '跨境电商'],
     supply: [151, 88, 64, 42, 38, 29, 56],
@@ -440,43 +489,105 @@ const Screen1: React.FC = () => {
   }, [SCREEN1.structurePie])
 
   useECharts(funnelRef, {
-    tooltip: { ...tooltip, trigger: 'item', formatter: p => `${p.name}<br/>${p.value} 家` },
+    tooltip: { ...tooltip, trigger: 'item', formatter: (p: any) => `${p.name}<br/>${p.value} 家` },
     series: [{
       type: 'funnel',
       left: '4%', right: '4%', top: 2, bottom: 2,
       minSize: '16%', maxSize: '100%', gap: 3,
-      label: { show: true, position: 'inside', fontSize: 10.5, color: '#fff', formatter: p => `${p.name}  ${p.value}` },
+      label: { show: true, position: 'inside', fontSize: 10.5, color: '#fff', formatter: (p: any) => `${p.name}  ${p.value}` },
       itemStyle: { borderColor: 'rgba(4,33,31,.6)', borderWidth: 1 },
       color: ['#f5b544', '#e8912d', '#3fa7ff', '#2ee6c8', '#17a08f', '#0f766e'],
       data: SCREEN1.cosFunnel,
     }],
   }, [SCREEN1.cosFunnel])
 
-  useECharts(regionRef, {
-    tooltip: { ...tooltip, trigger: 'item', formatter: p => `${p.data?.name}<br/>企业总量：${p.data?.value ?? 0} 家` },
-    series: [{
-      type: 'tree',
-      data: SCREEN1.chainTree,
-      top: '5%',
-      left: '12%',
-      bottom: '5%',
-      right: '20%',
-      symbolSize: 8,
-      label: {
-        fontSize: 10,
-        color: '#d7f5ef',
-        formatter: p => p ? `${p.name}${p.value > 0 ? '\n' + p.value + '家' : ''}` : '',
-      },
-      leaves: { label: { position: 'left', verticalAlign: 'middle', align: 'right' } },
-      emphasis: { focus: 'descendant' },
-      expandAndCollapse: true,
-      animationDuration: 550,
-      animationDurationUpdate: 750,
-      initialTreeDepth: 3,
-      lineStyle: { color: '#0f4a45', width: 1.5 },
-      itemStyle: { color: CY, borderColor: '#04211f' },
-    }],
-  }, [SCREEN1.chainTree])
+  // 南通地图：按区县展示高端纺织企业分布
+  useEffect(() => {
+    if (!regionRef.current) return
+    let chart = echarts.init(regionRef.current, undefined, { renderer: 'canvas' })
+    let cancelled = false
+    let ro: ResizeObserver | null = null
+
+    // 等容器布局完成再注册地图
+    const tryInit = () => {
+      if (cancelled) return
+      const el = regionRef.current
+      if (!el || el.clientWidth < 50 || el.clientHeight < 50) {
+        window.setTimeout(tryInit, 60)
+        return
+      }
+      fetch('/nantong.json').then(r => r.json()).then(geo => {
+        if (cancelled) return
+        echarts.registerMap('nantong', geo)
+        chart.setOption({
+          tooltip: {
+            ...tooltip,
+            trigger: 'item',
+            confine: true,
+            formatter: (p: any) => p.seriesType === 'map'
+              ? `${p.name}<br/>企业总量：${p.value ?? 0} 家<br/>占南通比：${p.data?.ratio ?? 0}%`
+              : `${p.name}<br/>企业总量：${p.value ?? 0} 家`,
+          },
+          visualMap: {
+            min: 0,
+            max: 480,
+            left: '6%',
+            bottom: '8%',
+            text: ['高', '低'],
+            calculable: false,
+            hoverLink: false,
+            inRange: { color: ['#0c4a45', '#17a08f', '#2ee6c8', '#57f0d8', '#a7f5e6'] },
+            textStyle: { color: '#8fc4bd', fontSize: 10 },
+            itemWidth: 12,
+            itemHeight: 80,
+          },
+          series: [{
+            name: '南通高端纺织企业分布',
+            type: 'map',
+            map: 'nantong',
+            roam: true,
+            zoom: 1.15,
+            scaleLimit: { min: 1, max: 6 },
+            selectedMode: false, // 关闭选中状态（避免点击后整图消失）
+            label: {
+              show: true,
+              color: '#d7f5ef',
+              fontSize: 11,
+              fontWeight: 600,
+              textShadowColor: '#04211f',
+              textShadowBlur: 4,
+            },
+            itemStyle: {
+              areaColor: 'rgba(15,74,69,.45)',
+              borderColor: '#2ee6c8',
+              borderWidth: 1,
+              shadowColor: 'rgba(46,230,200,.35)',
+              shadowBlur: 8,
+            },
+            emphasis: {
+              label: { color: '#fff', fontSize: 13 },
+              itemStyle: { areaColor: '#17a08f', shadowBlur: 18, borderColor: '#57f0d8' },
+            },
+            data: SCREEN1.nantongMap,
+          }],
+        })
+      })
+    }
+    tryInit()
+
+    ro = new ResizeObserver(() => {
+      if (!cancelled) chart.resize()
+    })
+    ro.observe(regionRef.current)
+    const onResize = () => chart.resize()
+    window.addEventListener('resize', onResize)
+    return () => {
+      cancelled = true
+      if (ro) ro.disconnect()
+      window.removeEventListener('resize', onResize)
+      try { chart.dispose() } catch { /* 幂等 */ }
+    }
+  }, [])
 
   return (
     <div className="cp-screen">
@@ -503,8 +614,9 @@ const Screen1: React.FC = () => {
           <div ref={funnelRef} className="cp-chart sm" />
         </div>
         <div className="cp-panel">
-          <h6>产业链节点企业分布</h6>
-          <div ref={regionRef} className="cp-chart sm" />
+          <h6>产业链节点企业分布（南通市地图）</h6>
+          <div ref={regionRef} className="cp-chart cp-chart-lg" style={{ height: 480 }} />
+          <div className="cp-note">数据按清册企业1,386家按区县聚合；颜色越亮=企业越密集；可滚轮缩放、拖拽平移</div>
         </div>
       </div>
       <div className="cp-panel">
@@ -587,23 +699,133 @@ const Screen2: React.FC = () => {
     }],
   }, [SCREEN2.l1Bar])
 
-  useECharts(sunRef, {
-    tooltip: { ...tooltip, trigger: 'item' },
-    series: [{
-      type: 'sunburst',
-      radius: ['8%', '92%'],
-      sort: undefined,
-      label: { fontSize: 9.5, color: '#04211f', minAngle: 6 },
-      itemStyle: { borderColor: '#04211f', borderWidth: 1.5 },
-      levels: [
-        {},
-        { r0: '8%', r: '38%', label: { rotate: 'radial', fontSize: 11, fontWeight: 700, color: '#fff' } },
-        { r0: '38%', r: '70%', label: { rotate: 'radial', fontSize: 9.5, color: '#04211f' } },
-        { r0: '70%', r: '92%', label: { rotate: 'tangential', fontSize: 8.5, color: '#04211f' } },
-      ],
-      data: SCREEN2.sunburst,
-    }],
-  }, [SCREEN2.sunburst])
+  useEffect(() => {
+    if (!sunRef.current) return
+    let graph: Graph | null = null
+
+    // 把树数据扁平化为 G6 节点/边
+    const nodes: any[] = []
+    const edges: any[] = []
+    const walk = (n: any, parentId?: string, depth = 0) => {
+      const id = `n${nodes.length}`
+      const isLeaf = !n.children || n.children.length === 0
+      nodes.push({
+        id,
+        data: {
+          name: n.name,
+          value: n.value || 0,
+          depth,
+          isLeaf,
+        },
+      })
+      if (parentId) edges.push({ id: `e${edges.length}`, source: parentId, target: id })
+      if (n.children) n.children.forEach((c: any) => walk(c, id, depth + 1))
+    }
+    SCREEN2.chainTree.forEach((n: any) => walk(n))
+
+    // 组件销毁标志：渲染回调、resize 回调都先检查
+    let destroyed = false
+    let ro: ResizeObserver | null = null
+    let renderTimeout: number | null = null
+
+    // 延迟到容器尺寸 > 0 才创建 Graph（避免 Panel 初始 display:none 时布局失败）
+    const tryInit = () => {
+      if (destroyed) return
+      const el = sunRef.current
+      if (!el || el.clientWidth < 50 || el.clientHeight < 50) {
+        // 容器尚未布局完成，下一帧再试
+        renderTimeout = window.setTimeout(tryInit, 60)
+        return
+      }
+
+      try {
+        graph = new Graph({
+          container: el,
+          autoFit: 'view',
+          autoResize: true,
+          background: 'transparent',
+          data: { nodes, edges },
+          node: {
+            type: 'rect',
+            style: {
+              size: (d: any) => {
+                const len = String(d.data?.name || '').length
+                // 文字越长宽度越大，每字约 14px，加 padding 36
+                return [Math.max(110, len * 14 + 36), 32]
+              },
+              radius: 4,
+              fill: (d: any) => d.data?.depth === 0 ? '#17a08f' : (d.data?.isLeaf ? '#0c4a45' : '#0f766e'),
+              stroke: '#2ee6c8',
+              lineWidth: 1.2,
+              shadowColor: 'rgba(46,230,200,.35)',
+              shadowBlur: 8,
+              labelText: (d: any) => d.data?.name ?? '',
+              labelFill: '#d7f5ef',
+              labelFontSize: (d: any) => d.data?.depth === 0 ? 12 : 11,
+              labelFontWeight: 600,
+              labelPlacement: 'center',
+              labelLineHeight: 14, // 行间距加大 1.5px
+            },
+          },
+          edge: {
+            type: 'cubic-horizontal',
+            style: {
+              stroke: '#0f4a45',
+              lineWidth: 1.4,
+              endArrow: true,
+              endArrowSize: 8,
+            },
+          },
+          layout: {
+            type: 'compact-box',
+            direction: 'LR', // 左→右
+            getHeight: () => 32,
+            getWidth: (d: any) => {
+              const len = String(d.data?.name || '').length
+              return Math.max(110, len * 14 + 36)
+            },
+            getVGap: () => 14,
+            getHGap: () => 48,
+          },
+          behaviors: ['drag-canvas', 'zoom-canvas', 'collapse-expand'],
+          animation: false,
+        })
+
+        graph.render()
+          .then(() => {
+            if (!destroyed && graph) graph.fitView()
+          })
+          .catch((err: Error) => {
+            if (!destroyed) console.error('[G6 render failed]', err)
+          })
+      } catch (err) {
+        if (!destroyed) console.error('[G6 init failed]', err)
+      }
+
+      // 监听容器尺寸变化
+      ro = new ResizeObserver(() => {
+        if (!destroyed && graph) {
+          graph.resize()
+          graph.fitView()
+        }
+      })
+      ro.observe(el)
+    }
+    tryInit()
+
+    const onResize = () => {
+      if (!destroyed && graph) graph.resize()
+    }
+    window.addEventListener('resize', onResize)
+    return () => {
+      destroyed = true
+      if (renderTimeout) window.clearTimeout(renderTimeout)
+      if (ro) ro.disconnect()
+      window.removeEventListener('resize', onResize)
+      try { graph?.destroy() } catch { /* G6 destroy 已幂等 */ }
+      graph = null
+    }
+  }, [])
 
   useECharts(boomRef, {
     tooltip: { ...tooltip, trigger: 'axis' },
@@ -631,9 +853,9 @@ const Screen2: React.FC = () => {
         </div>
       </div>
       <div className="cp-panel">
-        <h6>高端纺织产业链图谱（桑基图）</h6>
+        <h6>纺织工业产业链图谱</h6>
         <div ref={sunRef} className="cp-chart cp-chart-lg" />
-        <div className="cp-note">内圈=一级环节，中圈=二级节点，外圈=细分业态；节点面积≈企业归集量</div>
+        <div className="cp-note">纺织工业 → 一级环节 → 二级节点 → 三级细分 → 四级业态；点击节点可折叠/展开</div>
       </div>
       <div className="grid2">
         <div className="cp-panel">
@@ -665,40 +887,9 @@ const Screen2: React.FC = () => {
 
 // Screen 3
 const Screen3: React.FC = () => {
-  const radarRef = useRef<HTMLDivElement>(null)
-  const decisionRef = useRef<HTMLDivElement>(null)
   const matrixRef = useRef<HTMLDivElement>(null)
   const jobsRef = useRef<HTMLDivElement>(null)
   const abilityRef = useRef<HTMLDivElement>(null)
-
-  useECharts(radarRef, {
-    radar: {
-      indicator: SCREEN3.radar.indicator,
-      radius: '64%',
-      axisName: { fontSize: 10, color: '#8fc4bd' },
-      splitLine: { lineStyle: { color: '#0f4a45' } },
-      splitArea: { areaStyle: { color: ['rgba(46,230,200,.03)', 'rgba(46,230,200,.06)'] } },
-      axisLine: { lineStyle: { color: '#0f4a45' } },
-    },
-    series: [{
-      type: 'radar',
-      areaStyle: { color: 'rgba(46,230,200,.25)' },
-      lineStyle: { color: CY },
-      itemStyle: { color: CY },
-      data: [{ value: SCREEN3.radar.avg, name: '七维均值' }],
-    }],
-  }, [SCREEN3.radar])
-
-  useECharts(decisionRef, {
-    tooltip: { ...tooltip, trigger: 'item' },
-    series: [{
-      type: 'pie',
-      radius: ['45%', '70%'],
-      label: { fontSize: 10.5, color: '#d7f5ef' },
-      itemStyle: { borderColor: '#04211f', borderWidth: 2 },
-      data: SCREEN3.decisionPie,
-    }],
-  }, [SCREEN3.decisionPie])
 
   useECharts(matrixRef, {
     tooltip: { ...tooltip, trigger: 'axis' },
@@ -728,7 +919,7 @@ const Screen3: React.FC = () => {
   }, [SCREEN3.jobTypePie])
 
   useECharts(abilityRef, {
-    tooltip: { ...tooltip, trigger: 'axis', formatter: p => `${p[0].name}能力<br/>DACUM任务文本命中：${p[0].value} 次` },
+    tooltip: { ...tooltip, trigger: 'axis', formatter: (p: any) => `${p[0].name}能力<br/>DACUM任务文本命中：${p[0].value} 次` },
     grid: { left: 56, right: 40, top: 8, bottom: 22 },
     xAxis: { type: 'value', ...baseAxis },
     yAxis: { type: 'category', ...baseAxis, data: SCREEN3.abilityKW.map(x => x[0] + '能力').reverse() },
@@ -746,30 +937,19 @@ const Screen3: React.FC = () => {
 
   return (
     <div className="cp-screen">
-      <div className="grid2">
-        <div className="cp-panel">
-          <h6>企业七维评分均值</h6>
-          <div ref={radarRef} className="cp-chart" style={{ height: 260 }} />
-          <div className="cp-note">深度画像企业（Top226）七维均值，5分制</div>
-        </div>
-        <div className="cp-panel">
-          <h6>合作/求职研判分布</h6>
-          <div ref={decisionRef} className="cp-chart" style={{ height: 260 }} />
-        </div>
-      </div>
       <div className="cp-panel">
         <h6>产教匹配 · 七专业群供需矩阵</h6>
-        <div ref={matrixRef} className="cp-chart" style={{ height: 260 }} />
+        <div ref={matrixRef} className="cp-chart" style={{ height: 320 }} />
         <div className="cp-note">蓝色柱=2025招生供给，黄色线=企业需求岗位；供需缺口最大：家纺设计、跨境电商</div>
       </div>
       <div className="grid2">
         <div className="cp-panel">
           <h6>岗位需求 · 类别分布</h6>
-          <div ref={jobsRef} className="cp-chart sm" />
+          <div ref={jobsRef} className="cp-chart" style={{ height: 300 }} />
         </div>
         <div className="cp-panel">
-          <h6>岗位通用能力要素（DACUM 提取）</h6>
-          <div ref={abilityRef} className="cp-chart sm" />
+          <h6>岗位通用能力要素</h6>
+          <div ref={abilityRef} className="cp-chart" style={{ height: 300 }} />
         </div>
       </div>
     </div>
@@ -925,13 +1105,13 @@ const DashboardBoard: React.FC = () => {
 
       {/* Tab 切换 */}
       <div className="cp-tabs" id="cpTabs">
-        {(Object.entries(SCREEN_LABELS) as [ScreenKey, string][]).map(([k, label]) => (
+        {(Object.keys(SCREEN_LABELS) as unknown as ScreenKey[]).map((k) => (
           <button
             key={k}
             className={`cp-tab${k === active ? ' active' : ''}`}
             onClick={() => { setActive(k); rendered.current[k] = true }}
           >
-            {label}
+            {SCREEN_LABELS[k]}
           </button>
         ))}
       </div>
@@ -939,10 +1119,44 @@ const DashboardBoard: React.FC = () => {
       {/* KPI strip */}
       <CpKpis />
 
-      {/* 当前屏 */}
-      <ScreenComponent />
+      {/* 当前屏 (包错误边界，单屏崩溃不会导致整页白屏) */}
+      <ScreenErrorBoundary active={active}>
+        <ScreenComponent />
+      </ScreenErrorBoundary>
     </div>
   )
+}
+
+// React 错误边界：捕获 ECharts 渲染时的异常，兜底显示错误信息
+interface ScreenErrorBoundaryProps { active: ScreenKey; children: React.ReactNode }
+interface ScreenErrorBoundaryState { hasError: boolean; err?: Error }
+class ScreenErrorBoundary extends React.Component<ScreenErrorBoundaryProps, ScreenErrorBoundaryState> {
+  state: ScreenErrorBoundaryState = { hasError: false }
+  static getDerivedStateFromError(err: Error): ScreenErrorBoundaryState {
+    return { hasError: true, err }
+  }
+  componentDidCatch(err: Error, info: React.ErrorInfo) {
+    // eslint-disable-next-line no-console
+    console.error('[Screen render crashed]', err, info)
+  }
+  componentDidUpdate(prev: ScreenErrorBoundaryProps) {
+    if (prev.active !== this.props.active && this.state.hasError) {
+      this.setState({ hasError: false, err: undefined })
+    }
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="cp-screen" style={{ padding: 24, color: '#f56565' }}>
+          <h6 style={{ color: '#f56565' }}>本屏渲染异常</h6>
+          <pre style={{ fontSize: 11, color: '#d7f5ef', whiteSpace: 'pre-wrap' }}>
+            {String(this.state.err?.message || this.state.err)}
+          </pre>
+        </div>
+      )
+    }
+    return this.props.children
+  }
 }
 
 export default DashboardBoard

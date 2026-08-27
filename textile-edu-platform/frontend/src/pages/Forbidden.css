@@ -1,0 +1,114 @@
+/* 403 禁止访问页 */
+.forbidden-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #061a1a;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.forbidden-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(46, 230, 200, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 230, 200, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+}
+.forbidden-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+}
+.forbidden-orb-1 {
+  width: 300px; height: 300px;
+  background: rgba(226, 85, 85, 0.2);
+  top: 10%; right: 15%;
+}
+.forbidden-orb-2 {
+  width: 200px; height: 200px;
+  background: rgba(46, 230, 200, 0.15);
+  bottom: 15%; left: 10%;
+}
+.forbidden-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 480px;
+}
+.forbidden-code {
+  font-size: 140px;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0 0 20px;
+  background: linear-gradient(135deg, #ff6b6b, #e25555, #ff8e8e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  letter-spacing: -4px;
+}
+.forbidden-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #f0fffc;
+  margin: 0 0 14px;
+}
+.forbidden-desc {
+  font-size: 14px;
+  color: rgba(240, 255, 252, 0.5);
+  line-height: 1.7;
+  margin: 0 0 36px;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #061a1a;
+  background: linear-gradient(135deg, #2ee6c8, #0c8a74);
+  box-shadow: 0 4px 16px rgba(46, 230, 200, 0.3);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  font-family: inherit;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(46, 230, 200, 0.4);
+}
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border: 1px solid rgba(46, 230, 200, 0.3);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2ee6c8;
+  background: rgba(46, 230, 200, 0.06);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  font-family: inherit;
+}
+.btn-ghost:hover {
+  background: rgba(46, 230, 200, 0.12);
+  border-color: #2ee6c8;
+}
+.btn-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+@media (max-width: 480px) {
+  .forbidden-code { font-size: 100px; }
+  .btn-group { flex-direction: column; }
+  .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+}

@@ -35,6 +35,7 @@ backend/.cache/
 
 # Python extracted data (from earlier work)
 *.json
+!textile-edu-platform/frontend/public/nantong.json
 *.txt
 *.py
 !frontend/package.json

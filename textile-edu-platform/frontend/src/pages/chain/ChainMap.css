@@ -1,0 +1,370 @@
+/* ---------- 纺织工业产业链图谱 ---------- */
+
+.chain-module-page { padding-bottom: 24px; }
+.chain-top-section, .chain-list-section { margin-bottom: 16px; }
+
+.chain-grid-board {
+  display: grid; grid-template-columns: 0.9fr 1.1fr 1.2fr 1fr; gap: 16px;
+}
+.chain-column {
+  min-height: 360px;
+  background: linear-gradient(180deg, #fbfdfd 0%, #f5f9f8 100%);
+  border: 1px solid #e1ece9;
+  border-radius: 12px; padding: 14px;
+}
+.chain-column.is-leaf {
+  background: linear-gradient(180deg, #fcfefd 0%, #f8faf9 100%);
+}
+.chain-column-title {
+  font-size: 12px; font-weight: 700; color: #55706d;
+  letter-spacing: 0.04em; margin-bottom: 12px;
+}
+.chain-column-list { display: flex; flex-direction: column; gap: 10px; }
+
+.chain-node-btn {
+  width: 100%; border: 1px solid #dbe7e4; background: #fff;
+  border-radius: 12px; padding: 12px 12px 11px; text-align: left;
+  cursor: pointer; transition: all 0.25s ease;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.chain-node-btn:hover {
+  transform: translateY(-1px); border-color: rgba(46,230,200,0.36);
+  box-shadow: 0 8px 20px rgba(10,31,31,0.05);
+}
+.chain-node-btn.is-active {
+  background: linear-gradient(135deg, rgba(46,230,200,0.16), rgba(26,158,136,0.08));
+  border-color: rgba(46,230,200,0.45);
+  box-shadow: 0 12px 24px rgba(8,43,40,0.08);
+}
+.chain-node-btn strong {
+  display: block; font-size: 13px; line-height: 1.5; color: #193030;
+}
+.chain-node-btn small { display: block; margin-top: 4px; font-size: 11px; color: #8fa8a6; }
+.chain-node-main { min-width: 0; flex: 1; }
+.chain-node-count {
+  flex-shrink: 0; font-size: 11px; font-weight: 700; color: #0c8a74;
+  background: rgba(46,230,200,0.1); border: 1px solid rgba(46,230,200,0.2);
+  border-radius: 20px; padding: 6px 10px;
+}
+
+.chain-leaf-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.chain-leaf-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+  background: #e2eeff; color: #1a5fa8; border: 1px solid rgba(26,95,168,0.15);
+}
+.chain-leaf-tag.orange {
+  background: rgba(201,111,27,0.1); color: #c96f1b; border-color: rgba(201,111,27,0.2);
+}
+
+/* 评分条 */
+.chain-score-bar { height: 6px; background: #eef5f3; border-radius: 3px; overflow: hidden; margin: 4px 0; }
+.chain-score-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, #2ee6c8, #0c8a74);
+}
+/* 风险标识 */
+.chain-risk-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: 600;
+}
+.chain-risk-pill.low { background: rgba(22,163,74,0.1); color: #16a34a; }
+.chain-risk-pill.medium { background: rgba(180,83,9,0.1); color: #b45309; }
+.chain-risk-pill.high { background: rgba(220,38,38,0.1); color: #dc2626; }
+
+/* 详情面板 */
+.chain-detail-panel {
+  background: #fff; border: 1px solid #e3ebe9; border-radius: 14px;
+  padding: 20px 22px; margin-top: 16px;
+}
+.chain-detail-title { font-size: 17px; font-weight: 700; color: #1a2b2b; margin: 0 0 14px; }
+.chain-detail-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;
+}
+.chain-detail-item {
+  padding: 12px 14px; background: #fafcfb; border-radius: 10px; border: 1px solid #e6efed;
+}
+.chain-detail-item strong {
+  display: block; font-size: 12px; color: #8fa8a6; margin-bottom: 4px; font-weight: 600;
+}
+.chain-detail-item span { font-size: 14px; color: #1a2b2b; font-weight: 600; }
+
+/* 响应式 */
+@media (max-width: 1100px) { .chain-grid-board { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .chain-grid-board { grid-template-columns: 1fr; } }
+
+/* ── 企业列表区域 ── */
+
+.chain-list-section { margin-top: 8px; }
+
+/* 汇总条 */
+.chain-summary-bar {
+  display: flex; gap: 24px; align-items: center;
+  padding: 12px 18px; margin-bottom: 14px;
+  background: linear-gradient(135deg, rgba(46,230,200,0.06), rgba(12,138,116,0.04));
+  border: 1px solid #e3ebe9; border-radius: 12px;
+}
+.chain-summary-item {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.chain-summary-item span { font-size: 11px; color: #8fa8a6; font-weight: 600; letter-spacing: 0.03em; }
+.chain-summary-item strong { font-size: 20px; font-weight: 800; color: #0c8a74; line-height: 1.2; }
+
+/* 工具栏 */
+.chain-toolbar {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.chain-search {
+  flex: 1; min-width: 200px; max-width: 360px;
+  padding: 9px 14px; border: 1px solid #e3ebe9; border-radius: 10px;
+  font-size: 13px; color: #1a2b2b; background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+}
+.chain-search:focus {
+  border-color: rgba(46,230,200,0.6); box-shadow: 0 0 0 3px rgba(46,230,200,0.1);
+}
+.chain-search::placeholder { color: #b0c4c2; }
+
+.chain-filter-group { display: flex; gap: 6px; }
+.chain-filter-btn {
+  padding: 7px 15px; border-radius: 20px; font-size: 12.5px; font-weight: 600;
+  background: #fff; border: 1px solid #e3ebe9; color: #6b8180;
+  cursor: pointer; transition: all 0.2s;
+}
+.chain-filter-btn:hover { border-color: rgba(12,138,116,0.4); color: #0c8a74; }
+.chain-filter-btn.is-active {
+  background: #0c8a74; color: #fff; border-color: #0c8a74;
+  box-shadow: 0 2px 8px rgba(12,138,116,0.25);
+}
+
+/* 表格包裹 */
+.chain-table-wrap {
+  background: #fff; border: 1px solid #e3ebe9; border-radius: 14px;
+  overflow: hidden; box-shadow: 0 2px 12px rgba(10,31,31,0.04);
+}
+.chain-table {
+  width: 100%; border-collapse: collapse; font-size: 13px;
+}
+.chain-table thead tr {
+  background: linear-gradient(180deg, #f7faf9, #f0f7f5);
+}
+.chain-table th {
+  padding: 11px 16px; text-align: left;
+  font-size: 11.5px; font-weight: 700; color: #6b8180;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  border-bottom: 1px solid #e3ebe9; white-space: nowrap;
+}
+.chain-table td {
+  padding: 12px 16px; border-bottom: 1px solid #f4f9f8;
+  vertical-align: middle; color: #1a2b2b;
+}
+.chain-table tbody tr {
+  transition: background 0.15s;
+}
+.chain-table tbody tr:hover {
+  background: #f0faf8;
+}
+.chain-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* 企业名称链接 */
+.chain-enterprise-link {
+  background: none; border: none; padding: 0; cursor: pointer;
+  font-size: 13.5px; font-weight: 700; color: #0c8a74;
+  text-align: left; line-height: 1.4;
+  transition: color 0.15s;
+  max-width: 260px; display: block;
+}
+.chain-enterprise-link:hover { color: #075e54; text-decoration: underline; }
+
+/* 节点归属 */
+.chain-node-cell { font-size: 12px; color: #5f7574; max-width: 160px; line-height: 1.4; }
+
+/* 评级徽章 */
+.chain-rating {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 40px; padding: 3px 10px; border-radius: 20px;
+  font-size: 12px; font-weight: 800;
+  background: rgba(12,138,116,0.1); color: #0c8a74;
+}
+.chain-rating.low { background: rgba(180,83,9,0.1); color: #b45309; }
+.chain-rating.mid { background: rgba(251,191,36,0.15); color: #92400e; }
+
+/* 口径徽章 */
+.chain-source-badge {
+  display: inline-block; padding: 3px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.02em;
+}
+.chain-source-badge.is-profile {
+  background: rgba(12,138,116,0.1); color: #0c8a74;
+  border: 1px solid rgba(12,138,116,0.25);
+}
+.chain-source-badge:not(.is-profile) {
+  background: #f0f4f4; color: #8fa8a6;
+  border: 1px solid #e3ebe9;
+}
+
+/* 分页 */
+.chain-pagination {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; margin-top: 16px; padding: 12px;
+  background: #fff; border: 1px solid #e3ebe9; border-radius: 12px;
+}
+.chain-pagination button {
+  padding: 7px 18px; border: 1px solid #e3ebe9; border-radius: 8px;
+  background: #fff; font-size: 13px; font-weight: 600; color: #0c8a74;
+  cursor: pointer; transition: all 0.2s;
+}
+.chain-pagination button:hover:not(:disabled) {
+  background: #0c8a74; color: #fff; border-color: #0c8a74;
+}
+.chain-pagination button:disabled {
+  opacity: 0.4; cursor: not-allowed;
+}
+.chain-pagination span { font-size: 13px; color: #6b8180; font-weight: 600; }
+
+/* 抽屉 */
+.chain-drawer { padding: 4px 0 24px; }
+.chain-drawer-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.chain-drawer-section { margin-bottom: 18px; }
+.chain-drawer-section h4 {
+  font-size: 12px; font-weight: 700; color: #0c8a74;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin: 0 0 10px; padding-bottom: 6px;
+  border-bottom: 1px solid #e3ebe9;
+}
+.chain-drawer-section p { font-size: 13px; color: #5f7574; line-height: 1.75; margin: 0; }
+
+/* KV 数据行 */
+.chain-drawer-kv {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 16px;
+}
+.chain-drawer-kv > div { display: flex; flex-direction: column; gap: 2px; }
+.chain-drawer-kv > div.is-full { grid-column: 1 / -1; }
+.chain-drawer-kv span { font-size: 11px; color: #8fa8a6; font-weight: 600; letter-spacing: 0.03em; }
+.chain-drawer-kv strong { font-size: 13.5px; color: #1a2b2b; font-weight: 700; word-break: break-all; }
+
+/* 七维评分 */
+.chain-score-grid {
+  display: grid; grid-template-columns: 1fr; gap: 8px;
+}
+.chain-score-item {
+  display: grid; grid-template-columns: 130px 1fr 36px;
+  align-items: center; gap: 10px; font-size: 12.5px;
+}
+.chain-score-item span { color: #5f7574; font-weight: 600; }
+.chain-score-item strong { color: #0c8a74; font-weight: 800; font-size: 13px; text-align: right; }
+.chain-score-bar { height: 7px; background: #eef5f3; border-radius: 4px; overflow: hidden; }
+.chain-score-bar i {
+  display: block; height: 100%; border-radius: 4px;
+  background: linear-gradient(90deg, #2ee6c8, #0c8a74);
+  transition: width 0.5s ease;
+}
+
+/* 参保趋势 */
+.chain-insured-row {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.chain-insured-col {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8px 14px; background: #f7faf9; border-radius: 10px;
+  border: 1px solid #e3ebe9; min-width: 56px;
+}
+.chain-insured-col strong { font-size: 16px; font-weight: 800; color: #0c8a74; line-height: 1.2; }
+.chain-insured-col span { font-size: 11px; color: #8fa8a6; margin-top: 2px; }
+
+/* Chip 行 */
+.chain-chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.chain-chip {
+  display: inline-block; padding: 3px 10px; border-radius: 12px;
+  font-size: 11.5px; font-weight: 600;
+  background: rgba(46,230,200,0.08); color: #0c8a74;
+  border: 1px solid rgba(46,230,200,0.2);
+}
+
+/* 岗位表格 */
+.chain-job-table {
+  border: 1px solid #e3ebe9; border-radius: 10px; overflow: hidden;
+  margin-top: 4px;
+}
+.chain-job-head, .chain-job-row {
+  display: grid; grid-template-columns: 2fr 1.2fr 1fr 1fr;
+  padding: 8px 14px; align-items: center; gap: 8px;
+}
+.chain-job-head {
+  background: #f0f7f5; font-size: 11px; font-weight: 700;
+  color: #6b8180; letter-spacing: 0.04em; text-transform: uppercase;
+}
+.chain-job-row {
+  border-top: 1px solid #f0f5f4; font-size: 12.5px;
+  transition: background 0.12s;
+}
+.chain-job-row:hover { background: #f7faf9; }
+.chain-job-row strong { color: #1a2b2b; font-weight: 700; }
+.chain-job-row span { color: #5f7574; }
+.chain-job-more {
+  grid-column: 1 / -1; padding: 6px 14px;
+  font-size: 11.5px; color: #8fa8a6; background: #f9fdfc;
+  border-top: 1px solid #f0f5f4;
+}
+
+/* 决策 */
+.chain-decision {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 16px; border-radius: 12px; font-size: 13px; line-height: 1.7;
+}
+.chain-decision.is-good {
+  background: rgba(22,163,74,0.06); border: 1px solid rgba(22,163,74,0.2); color: #166534;
+}
+.chain-decision.is-mid {
+  background: rgba(180,83,9,0.06); border: 1px solid rgba(180,83,9,0.2); color: #92400e;
+}
+.chain-decision.is-bad {
+  background: rgba(220,38,38,0.06); border: 1px solid rgba(220,38,38,0.2); color: #991b1b;
+}
+.chain-decision-title { display: flex; flex-direction: column; gap: 2px; }
+.chain-decision-title strong { font-size: 14px; font-weight: 800; }
+.chain-decision-title span { font-size: 12px; opacity: 0.8; }
+
+/* 风险 */
+.chain-risk-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.chain-risk-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 600;
+}
+.chain-risk-pill.is-ok { background: rgba(22,163,74,0.08); color: #16a34a; border: 1px solid rgba(22,163,74,0.2); }
+.chain-risk-pill.is-warn { background: rgba(180,83,9,0.08); color: #b45309; border: 1px solid rgba(180,83,9,0.2); }
+.chain-risk-pill.is-bad { background: rgba(220,38,38,0.08); color: #dc2626; border: 1px solid rgba(220,38,38,0.2); }
+
+/* 招投标 */
+.chain-tender-mini { margin-top: 8px; }
+.chain-tender-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 12px; border-radius: 8px; margin-bottom: 4px;
+  background: #f9fdfc; border: 1px solid #eaf3f1;
+}
+.t-title { font-size: 12px; font-weight: 600; color: #1a2b2b; max-width: 60%; }
+.t-meta { font-size: 11px; color: #8fa8a6; white-space: nowrap; }
+
+/* 加载 / 错误 */
+.chain-loading {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; padding: 40px; color: #6b8180; font-size: 14px;
+}
+.chain-error {
+  padding: 16px 20px; margin: 12px 0;
+  background: rgba(220,38,38,0.05); border: 1px solid rgba(220,38,38,0.15);
+  border-radius: 10px; color: #dc2626; font-size: 13px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .chain-summary-bar { flex-wrap: wrap; gap: 12px; }
+  .chain-toolbar { flex-direction: column; align-items: stretch; }
+  .chain-search { max-width: none; }
+  .chain-drawer-kv { grid-template-columns: 1fr; }
+  .chain-job-head, .chain-job-row { grid-template-columns: 2fr 1fr 1fr; }
+  .chain-job-head span:nth-child(4), .chain-job-row span:nth-child(4) { display: none; }
+}

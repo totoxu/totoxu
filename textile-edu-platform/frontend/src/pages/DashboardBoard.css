@@ -153,6 +153,13 @@
 .cp-chart.sm { height: 210px; }
 .cp-chart-lg { height: 420px; }
 
+/* G6 容器必须撑满父级 cp-chart，避免空白 */
+.cp-chart .g6-container,
+.cp-chart > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 /* ── 宏观数据行 ── */
 .cp-macro-rows {
   display: grid;

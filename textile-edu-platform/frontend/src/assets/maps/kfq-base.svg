@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="1600" height="1200">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4f7f6"/>
+      <stop offset="100%" stop-color="#eef2f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#bg)"/>
+  <path d="M-60 980 C220 905 460 900 720 960 C930 1008 1170 1040 1410 1010 C1520 997 1590 975 1660 942 L1660 1260 L-60 1260 Z" fill="#8fcce2" opacity="0.6"/>
+  <path d="M-60 1012 C210 942 458 938 716 998 C946 1050 1180 1086 1408 1056 C1510 1040 1584 1016 1660 984 L1660 1260 L-60 1260 Z" fill="#d8f2fb" opacity="0.94"/>
+  <g fill="#dfe8e6" opacity="0.94">
+    <path d="M0 0 H1600 V360 C1455 345 1360 390 1250 450 C1130 515 980 530 800 470 C620 412 510 398 350 455 C210 504 110 500 0 450 Z"/>
+    <path d="M0 720 C180 670 320 650 470 670 C630 691 760 756 930 742 C1110 726 1205 650 1390 650 C1475 650 1545 662 1600 676 V980 C1350 900 1120 886 930 892 C760 896 590 870 430 860 C270 850 120 875 0 920 Z"/>
+  </g>
+  <g stroke="#ced7d5" stroke-width="19" fill="none" stroke-linecap="round" opacity="0.95">
+    <path d="M150 180 L360 260 L610 250 L840 300 L1130 275 L1460 360"/>
+    <path d="M120 560 L330 520 L570 550 L780 520 L1020 560 L1260 540 L1490 610"/>
+    <path d="M230 850 L470 790 L700 800 L920 780 L1180 810 L1470 785"/>
+    <path d="M1030 110 L980 280 L960 440 L1000 610 L1080 760 L1160 910"/>
+    <path d="M600 140 L620 330 L640 470 L700 640 L820 760 L940 890"/>
+  </g>
+  <g stroke="#e4ab57" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.95">
+    <path d="M210 688 L420 660 L670 700 L910 680 L1100 720 L1320 695"/>
+    <path d="M400 240 L470 390 L500 540 L590 660 L760 800 L940 900"/>
+    <path d="M1140 250 L1200 400 L1260 560 L1350 700 L1470 810"/>
+  </g>
+  <g stroke="#d5dddb" stroke-width="4" fill="none" opacity="0.72">
+    <path d="M90 340 L220 380 L410 360 L580 390 L780 370 L980 410 L1180 380"/>
+    <path d="M220 470 L350 500 L520 490 L690 520 L860 500 L1050 520 L1260 500"/>
+    <path d="M300 930 L450 900 L590 914 L760 900 L980 920 L1210 910"/>
+  </g>
+  <g fill="#ffffff" opacity="0.9">
+    <rect x="900" y="420" width="360" height="220" rx="44"/>
+  </g>
+  <g fill="none" opacity="0.24">
+    <path d="M922 450 L1170 430 L1250 515 L1198 614 L990 644 L914 560 Z" stroke="#1a6d8a" stroke-width="40" stroke-linejoin="round"/>
+  </g>
+  <g fill="#3a4d4d" font-family="PingFang SC, Microsoft YaHei, sans-serif">
+    <text x="968" y="510" font-size="32" font-weight="700" fill="#1a6d8a">南通经开区</text>
+    <text x="970" y="555" font-size="18" fill="#68817f">电子信息 · 医药健康 · 精密机械</text>
+    <text x="146" y="1080" font-size="26" fill="#7d9190">长江岸线</text>
+    <text x="178" y="260" font-size="22" fill="#7d9190">崇川城区方向</text>
+    <text x="1280" y="230" font-size="22" fill="#7d9190">苏通园区方向</text>
+    <text x="92" y="88" font-size="26" fill="#96abaa">南通经开区空间示意底图</text>
+  </g>
+</svg>

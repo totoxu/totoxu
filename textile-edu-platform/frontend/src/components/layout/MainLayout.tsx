@@ -23,7 +23,7 @@ const MENU_GROUPS: MenuGroup[] = [
     label: '平台总览',
     icon: '◈',
     children: [
-      { key: '/dashboard', label: '数据概览' },
+      { key: '/dashboard', label: '综合看板' },
     ],
   },
   {
@@ -41,7 +41,7 @@ const MENU_GROUPS: MenuGroup[] = [
     icon: '◎',
     children: [
       { key: '/chain/map', label: '产业链图谱' },
-      { key: '/chain/enterprises', label: '企业名录' },
+      { key: '/chain/enterprises', label: '产业节点重点企业名录' },
       { key: '/chain/technology', label: '行业前沿技术分析' },
     ],
   },
